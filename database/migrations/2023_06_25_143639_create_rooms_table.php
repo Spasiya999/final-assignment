@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('room_number', 10)->unique();
             $table->string('room_name', 20);
             $table->string('room_type', 10);
+            $table->text('short_description');
             $table->text('description');
             $table->integer('beds');
             $table->integer('occupancy');
