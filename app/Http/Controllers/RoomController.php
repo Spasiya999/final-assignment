@@ -13,7 +13,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.rooms.index');
     }
 
     /**
@@ -21,7 +22,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-
+        return view('admin.rooms.create');
     }
 
     /**
@@ -29,8 +30,22 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        //
+        $data = [
+            'room_number' => $request->room_no,
+            'room_name' => $request->room_name,
+            'room_type' => $request->room_type,
+            'short_description' => $request->short_Description,
+            'description' => $request->description,
+            'beds' => $request->beds,
+            'occupancy' => $request->occupancy,
+            'price' => $request->price,
+            'status' => $request->status,
+        ];
+        dd($data);
+        // Room::create($data);
+        // return redirect()->route('room.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -45,7 +60,7 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        return view('admin.rooms.edit');
     }
 
     /**
