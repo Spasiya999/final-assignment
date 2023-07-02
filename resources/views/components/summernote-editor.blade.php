@@ -1,3 +1,8 @@
+<?php
+$room = App\Models\Room::find(1);
+
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -8,8 +13,10 @@
   </head>
   <body>
     <div id="summernote">
+        {{$room->description}}
         <textarea x-model="content" style="display: none;"></textarea>
     </div>
+
     <script>
       $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
