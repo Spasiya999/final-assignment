@@ -13,8 +13,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="RoomName">Room Name.</label>
-                                <input type="text" class="form-control" id="roomName" placeholder="Room Name."
-                                    name="room_Name">
+                                <input type="text" class="form-control" id="room_name" placeholder="Room Name." name="room_name">
                             </div>
                             <div class="form-group">
                                 <label for="RoomNO">Room No.</label>
