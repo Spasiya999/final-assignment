@@ -22,14 +22,14 @@ class Room extends Model
     ];
 
     const roomTypes = [
-        'standard' => 'Standard',
-        'deluxe' => 'Deluxe',
-        'luxury' => 'Luxury',
-        'suite' => 'Suite',
+        'Standard' => 'Standard',
+        'Deluxe' => 'Deluxe',
+        'Luxury' => 'Luxury',
+        'Suite' => 'Suite',
     ];
 
     const roomStatus = [
-        'available' => 'Available',
-        'unavailable' => 'Unavailable',
+        'Available' => 'Available',
+        'Unavailable' => 'Unavailable',
     ];
 }
