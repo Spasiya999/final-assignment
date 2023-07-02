@@ -20,4 +20,16 @@ class Room extends Model
         'price',
         'status',
     ];
+
+    const roomTypes = [
+        'standard' => 'Standard',
+        'deluxe' => 'Deluxe',
+        'luxury' => 'Luxury',
+        'suite' => 'Suite',
+    ];
+
+    const roomStatus = [
+        'available' => 'Available',
+        'unavailable' => 'Unavailable',
+    ];
 }

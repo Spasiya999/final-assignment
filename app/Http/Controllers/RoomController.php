@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use Illuminate\Http\Request;
 use App\Models\Room;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -13,8 +15,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-
-        return view('admin.rooms.index');
+        $rooms = Room::all();
+        return view('admin.rooms.index', compact('rooms'));
     }
 
     /**
@@ -22,7 +24,9 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('admin.rooms.create');
+        $types = Room::roomTypes;
+        $statuses = Room::roomStatus;
+        return view('admin.rooms.create', compact('types', 'statuses'));
     }
 
     /**
@@ -31,8 +35,8 @@ class RoomController extends Controller
     public function store(StoreRoomRequest $request)
     {
         $data = [
-            'room_number' => $request->room_no,
             'room_name' => $request->room_name,
+            'room_number' => $request->room_no,
             'room_type' => $request->room_type,
             'short_description' => $request->short_Description,
             'description' => $request->description,
@@ -41,26 +45,21 @@ class RoomController extends Controller
             'price' => $request->price,
             'status' => $request->status,
         ];
-        dd($data);
-        // Room::create($data);
-        // return redirect()->route('room.index');
+        // dd($data);
+        Room::create($data);
+        return redirect()->route('room.index');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Room $room)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Room $room)
     {
-        return view('admin.rooms.edit');
+        $room = Room::find($room->id);
+        $types = Room::roomTypes;
+        $statuses = Room::roomStatus;
+        return view('admin.rooms.edit', compact('room', 'types', 'statuses'));
     }
 
     /**
@@ -68,7 +67,21 @@ class RoomController extends Controller
      */
     public function update(UpdateRoomRequest $request, Room $room)
     {
-        //
+        // dd($request->all());
+        $data = [
+            'room_name' => $request->room_name,
+            'room_number' => $request->room_no,
+            'room_type' => $request->room_type ?? 'Standard',
+            'short_description' => $request->short_Description,
+            'description' => $request->description ?? 'not fix',
+            'beds' => $request->beds,
+            'occupancy' => $request->occupancy,
+            'price' => $request->price,
+            'status' => $request->status,
+        ];
+
+        $room->update($data);
+        return redirect()->route('room.index');
     }
 
     /**
@@ -76,6 +89,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete($room);
+        return redirect()->route('room.index');
     }
 }
