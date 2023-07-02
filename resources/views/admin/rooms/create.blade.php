@@ -24,11 +24,11 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Room type</label>
-                                <select class="custom-select" name="room_type" id="room_type">
+                                <select name="room_Type" id="room_Type" class="custom-select">
                                     <option>Select Room type</option>
-                                    {{-- @foreach ($statuses as $key => $status)
-                                        <option value="{{ $key }}">{{ $status }}</option>
-                                    @endforeach --}}
+                                    @foreach ($types as $key => $type)
+                                        <option value="{{ $key }}"> {{ $type }} </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -39,7 +39,9 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <x-summernote-editor id="description-editor" placeholder="Type something here"></x-summernote-editor>
+                        <x-summernote-editor id="description-editor" placeholder="Type something here">
+
+                        </x-summernote-editor>
                         <textarea class="form-control" rows="3" name="description" id="description" style="display: none;"></textarea>
                     </div>
                     <div class="row">
@@ -67,10 +69,11 @@
                             <div class="form-group">
                                 <label for="status"> Status</label>
                                 <select class="custom-select" name="status" id="status">
-                                    <option>Available</option>
-                                    {{-- @foreach ($statuses as $key => $status )
-                                        <option value="{{$key}}">{{$status}}</option>
-                                    @endforeach --}}
+                                    <option>Status</option>
+                                    @foreach ($statuses as $key => $status)
+                                        <option value="{{ $key }}">
+                                            {{ $status }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
