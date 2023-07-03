@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
@@ -16,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/home', function () {
     return view('home.index');
@@ -35,7 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //dashboard
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'permission:rooms'])->group(function () {
     Route::prefix('/dashboard')->group(function () {
     //Rooms CRUD
         Route::get('/rooms', [RoomController::class, 'index'])->name('room.index');
