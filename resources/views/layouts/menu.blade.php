@@ -11,6 +11,7 @@
         <p>Web Site</p>
     </a>
 </li>
+@can('rooms')
 <li class="nav-item">
     <a href="#" class="nav-link active">
         <i class="nav-icon fas fa-bed"></i>
@@ -34,3 +35,4 @@
         </li>
     </ul>
 </li>
+@endcan
