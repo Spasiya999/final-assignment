@@ -5,7 +5,6 @@
                 <h3 class="card-title">Add room</h3>
             </div>
 
-
             <form method="post">
                 @csrf
                 @method('PUT')
@@ -45,7 +44,7 @@
                     <div class="form-group">
                         <label for="description">Description</label>
                         <x-summernote-editor id="description-editor" placeholder="Type something here">
-
+                            {{ $room->description }}
                         </x-summernote-editor>
                         <textarea class="form-control" rows="3" name="description" id="description" style="display: none;"></textarea>
                     </div>
@@ -96,29 +95,28 @@
         </div>
     @endsection
     @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#description-editor').summernote({
-                    placeholder: 'Type something here',
-                    tabsize: 2,
-                    height: 120,
-                    toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
-                        ['view', ['fullscreen', 'codeview', 'help']]
-                    ],
-                    callbacks: {
-                        onChange: function(contents, $editable) {
-                            $('#description').val(
-                                contents); // Set the Summernote content as the value of the hidden textarea
-                        }
+    <script>
+        $(document).ready(function() {
+            $('#description-editor').summernote({
+                placeholder: 'Type something here',
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ],
+                callbacks: {
+                    onChange: function(contents, $editable) {
+                        $('#description').val(contents);
                     }
-                });
+                }
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush
 </x-app-layout>

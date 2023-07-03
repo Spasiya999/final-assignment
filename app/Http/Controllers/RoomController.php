@@ -71,7 +71,7 @@ class RoomController extends Controller
         $data = [
             'room_name' => $request->room_name,
             'room_number' => $request->room_no,
-            'room_type' => $request->room_type ?? 'Standard',
+            'room_type' => $request->room_type,
             'short_description' => $request->short_Description,
             'description' => $request->description ?? 'not fix',
             'beds' => $request->beds,
