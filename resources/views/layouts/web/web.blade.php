@@ -82,6 +82,19 @@
         </div>
         <!-- Service End -->
 
+        <!-- Reservation Start -->
+        <div class=" py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <div class="video">
+                        <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/" data-bs-target="#videoModal">
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+                <x-booking-form></x-booking-form>
+            </div>
+        </div>
 
         <!-- About Start -->
         <div class=" py-5">
@@ -479,21 +492,6 @@
             </div>
         </div>
         <!-- Menu End -->
-
-
-        <!-- Reservation Start -->
-        <div class=" py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <div class="video">
-                        <button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-                <x-booking-form></x-booking-form>
-            </div>
-        </div>
 
         <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
