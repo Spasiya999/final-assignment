@@ -1,4 +1,7 @@
 <x-app-layout>
+    @push('css')
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    @endpush
     @section('content')
         <div class="card card-primary m-3">
             <div class="card-header">
@@ -78,6 +81,15 @@
                             </div>
                         </div>
                     </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Images</label>
+                                    <div id="roomImageDrop" class="dropzone"></div>
+                                    <input type="hidden" name="image" id="image">
+                                </div>
+                            </div>
+                        </div>
                 </div>
 
                 <div class="card-footer">
@@ -86,29 +98,34 @@
             </form>
         </div>
     @endsection
+    @push('css')
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    @endpush
     @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#description-editor').summernote({
-                placeholder: 'Type something here',
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ],
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $('#description').val(contents); // Set the Summernote content as the value of the hidden textarea
-                    }
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <script>
+            Dropzone.autoDiscover = false;
+            let myDropzone = new Dropzone("#roomImageDrop", {
+                url: '{{ route('room.image.upload')}}',
+                maxFilesize: 3,
+                acceptedFiles: 'image/*',
+                paramName: 'image',
+                init: function() {
+                    this.on('sending', function(file, xhr, formData) {
+                        formData.append('_token', '{{ csrf_token() }}');
+                    });
+                    this.on('success', function(file, response) {
+                        console.log(response);
+                        if(response.status){
+                            $('#image').val(response.image);
+                            notyf.success('Image uploaded successfully')
+                        }else{
+                            notyf.error('Image upload failed')
+                        }
+
+                    });
                 }
             });
-        });
-    </script>
-
+        </script>
     @endpush
 </x-app-layout>

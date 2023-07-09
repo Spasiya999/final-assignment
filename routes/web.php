@@ -51,6 +51,7 @@ Route::middleware(['auth', 'permission:rooms'])->group(function () {
             Route::get('/{room}/edit',[RoomController::class, 'edit'])->name('room.edit');
             Route::put('/{room}/edit',[RoomController::class, 'update'])->name('room.update');
             Route::delete('/{room}/delete',[RoomController::class, 'destroy'])->name('room.destroy');
+            Route::post('/image-upload', [RoomController::class, 'imageUpload'])->name('room.image.upload');
         });
     });
 });

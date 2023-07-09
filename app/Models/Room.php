@@ -19,13 +19,14 @@ class Room extends Model
         'occupancy',
         'price',
         'status',
+        'image',
     ];
 
     const roomTypes = [
-        'Standard' => 'Standard',
-        'Deluxe' => 'Deluxe',
-        'Luxury' => 'Luxury',
-        'Suite' => 'Suite',
+        'standard' => 'Standard',
+        'deluxe' => 'Deluxe',
+        'luxury' => 'Luxury',
+        'suite' => 'Suite',
     ];
 
     const roomStatus = [

@@ -37,13 +37,14 @@ class RoomController extends Controller
         $data = [
             'room_name' => $request->room_name,
             'room_number' => $request->room_no,
-            'room_type' => $request->room_type,
+            'room_type' => $request->room_type ?? 'Standard',
             'short_description' => $request->short_Description,
-            'description' => $request->description,
+            'description' => $request->description ?? '',
             'beds' => $request->beds,
             'occupancy' => $request->occupancy,
             'price' => $request->price,
             'status' => $request->status,
+            'image' => $request->image,
         ];
         // dd($data);
         Room::create($data);
@@ -91,5 +92,25 @@ class RoomController extends Controller
     {
         $room->delete($room);
         return redirect()->route('room.index');
+    }
+
+    public function imageUpload(Request $request){
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3072', // 3MB
+        ]);
+        $file = $request->file('image');
+        $path = $file->store('uploads', 'public');
+
+        if($path){
+            return response()->json([
+                'status' => true,
+                'image' => $path
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'Image upload failed'
+            ]);
+        }
     }
 }

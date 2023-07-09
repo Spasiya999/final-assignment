@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('room_name', 20);
             $table->string('room_type', 10);
             $table->text('short_description');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('beds');
             $table->integer('occupancy');
             $table->decimal('price', 10, 2);
             $table->string('status', 10)->default('available');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
