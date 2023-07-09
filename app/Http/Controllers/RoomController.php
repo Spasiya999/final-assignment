@@ -69,6 +69,9 @@ class RoomController extends Controller
     public function update(UpdateRoomRequest $request, Room $room)
     {
         // dd($request->all());
+        if($request->image != $room->image && !empty($room->image)){
+            Storage::disk('public')->delete($room->image);
+        }
         $data = [
             'room_name' => $request->room_name,
             'room_number' => $request->room_no,
@@ -79,6 +82,7 @@ class RoomController extends Controller
             'occupancy' => $request->occupancy,
             'price' => $request->price,
             'status' => $request->status,
+            'image' => $request->image,
         ];
 
         $room->update($data);

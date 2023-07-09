@@ -86,6 +86,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Images</label>
+                                <div id="roomImageDrop" class="dropzone {{$room->image ? 'd-none' : ''}}"></div>
+                                <x-drop-img-preview src="{{asset('storage/'.$room->image)}}" class="{{$room->image ? 'd-block' : 'd-none'}} w-50"
+                                id="roomImage">
+                                </x-drop-img-preview>
+                                <input type="hidden" name="image" id="image" value="{{$room->image}}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-footer">
@@ -94,29 +106,41 @@
             </form>
         </div>
     @endsection
+    @push('css')
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    @endpush
     @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#description-editor').summernote({
-                placeholder: 'Type something here',
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ],
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $('#description').val(contents);
-                    }
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <script>
+            Dropzone.autoDiscover = false;
+
+            let myDropzone = new Dropzone("#roomImageDrop", {
+                url: '{{ route('room.image.upload') }}',
+                maxFilesize: 3,
+                acceptedFiles: 'image/*',
+                paramName: 'image',
+                init: function() {
+                    this.on('sending', function(file, xhr, formData) {
+                        formData.append('_token', '{{ csrf_token() }}');
+                    });
+                    this.on('success', function(file, response) {
+                        console.log(response);
+                        if(response.status){
+                            $('#image').val(response.image);
+                            notyf.success('Image uploaded successfully')
+                        }else{
+                            notyf.error('Image upload failed')
+                        }
+
+                    });
                 }
             });
-        });
-    </script>
-@endpush
+
+            $('#roomImage .remove-btn').on('click', function(){
+                $('#image').val('');
+                $('#roomImage').addClass('d-none').removeClass('d-block');
+                $('#roomImageDrop').removeClass('d-none');
+            });
+        </script>
+    @endpush
 </x-app-layout>
