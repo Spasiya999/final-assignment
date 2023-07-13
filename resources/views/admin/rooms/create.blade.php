@@ -35,6 +35,10 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="slug">Slug.</label>
+                            <input type="text" class="form-control" id="slug" placeholder="Slug." name="slug">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="short_Description">Short Description</label>
@@ -42,9 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <x-summernote-editor id="description-editor" placeholder="Type something here">
-
-                        </x-summernote-editor>
+                        <textarea id="mytextarea"></textarea>
                         <textarea class="form-control" rows="3" name="description" id="description" style="display: none;"></textarea>
                     </div>
                     <div class="row">

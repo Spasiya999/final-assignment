@@ -9,7 +9,7 @@ class RoomSearchController extends Controller
 {
     public function index(Request $request)
     {
-        dump($request->all());
+        // dump($request->all());
         // $rooms = Room::where('room_type', $request->roomType)
         // ->where('occupancy','>=', $request->guest)
         // ->where('status', 'available')
@@ -22,6 +22,14 @@ class RoomSearchController extends Controller
             $rooms = $rooms->where('occupancy', '>=', $request->guest);
         }
         $rooms = $rooms->get();
-        dd($rooms);
+        return view('home.rooms', compact('rooms'));
+    }
+
+    public function indside(Room $room){
+        $room = Room::find($room->id);
+        $types = Room::roomTypes;
+        $statuses = Room::roomStatus;
+        $roomName = Room::find($room->room_name);
+        return view('home.roominside', compact('room', 'types', 'statuses', 'roomName'));
     }
 }

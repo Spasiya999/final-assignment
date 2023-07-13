@@ -1,5 +1,12 @@
 <x-laravel-ui-adminlte::adminlte-layout>
     @stack('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@6.6.0/skins/ui/oxide/content.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.6.0/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+          selector: '#mytextarea'
+        });
+      </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="{{asset('css/dash/custom.css')}}">

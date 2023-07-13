@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('room_type', 10);
             $table->text('short_description');
             $table->text('description')->nullable();
+            $table->string('slug')->unique();
             $table->integer('beds');
             $table->integer('occupancy');
             $table->decimal('price', 10, 2);

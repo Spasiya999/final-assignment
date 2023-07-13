@@ -25,16 +25,21 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Room type</label>
+                                {{-- <h6><span class="badge bg-secondary">{{ $room->room_type }}</span></h6> --}}
                                 <select name="room_type" id="room_Type" class="custom-select">
                                     <option>Select Room type</option>
                                     @foreach ($types as $key => $type)
-                                        <option value="{{ $key }}" {{ $room->room_type == $key ? 'selected' : '' }}>
+                                        <option value="{{ $key }}"
+                                            {{ $room->room_type == $key ? 'selected' : '' }}>
                                             {{ $type }}</option>
                                     @endforeach
                                 </select>
-                                <h6><span class="badge bg-secondary">{{ $room->room_type }}</span></h6>
                             </div>
-
+                            <div class="form-group">
+                                <label for="slug">Slug.</label>
+                                <input type="text" class="form-control" id="slug" value="{{ $room->slug }}"
+                                    placeholder="Slug." name="slug">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,9 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <x-summernote-editor id="description-editor" placeholder="Type something here">
-                            {{ $room->description }}
-                        </x-summernote-editor>
+                        <textarea id="mytextarea">{{$room->description}}</textarea>
                         <textarea class="form-control" rows="3" name="description" id="description" style="display: none;"></textarea>
                     </div>
                     <div class="row">
@@ -90,11 +93,10 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Images</label>
-                                <div id="roomImageDrop" class="dropzone {{$room->image ? 'd-none' : ''}}"></div>
-                                <x-drop-img-preview src="{{asset('storage/'.$room->image)}}" class="{{$room->image ? 'd-block' : 'd-none'}} w-50"
-                                id="roomImage">
+                                <div id="roomImageDrop" class="dropzone {{ $room->image ? 'd-none' : '' }}"></div>
+                                <x-drop-img-preview src="{{ asset('storage/' . $room->image) }}" class="{{ $room->image ? 'd-block' : 'd-none' }} w-50" id="roomImage">
                                 </x-drop-img-preview>
-                                <input type="hidden" name="image" id="image" value="{{$room->image}}">
+                                <input type="hidden" name="image" id="image" value="{{ $room->image }}">
                             </div>
                         </div>
                     </div>
@@ -125,10 +127,10 @@
                     });
                     this.on('success', function(file, response) {
                         console.log(response);
-                        if(response.status){
+                        if (response.status) {
                             $('#image').val(response.image);
                             notyf.success('Image uploaded successfully')
-                        }else{
+                        } else {
                             notyf.error('Image upload failed')
                         }
 
@@ -136,7 +138,7 @@
                 }
             });
 
-            $('#roomImage .remove-btn').on('click', function(){
+            $('#roomImage .remove-btn').on('click', function() {
                 $('#image').val('');
                 $('#roomImage').addClass('d-none').removeClass('d-block');
                 $('#roomImageDrop').removeClass('d-none');

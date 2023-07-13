@@ -15,6 +15,7 @@ class Room extends Model
         'room_type',
         'short_description',
         'description',
+        'slug',
         'beds',
         'occupancy',
         'price',

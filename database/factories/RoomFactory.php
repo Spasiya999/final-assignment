@@ -17,11 +17,12 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'room_name' => $this->faker->text(5),
+            'room_name' => $this->faker->text(8),
             'room_number' => $this->faker->numberBetween(100, 999),
             'room_type' => $this->faker->randomElement(['Standard', 'Deluxe', 'Luxury', 'Suite']),
-            'short_description' => $this->faker->text(30),
-            'description' => $this->faker->text(200),
+            'short_description' => $this->faker->text(100),
+            'description' => $this->faker->paragraph(4, true),
+            'slug' => $this->faker->slug(),
             'beds' => $this->faker->numberBetween(1, 5),
             'occupancy' => $this->faker->numberBetween(1, 10),
             'price' => $this->faker->numberBetween(10000, 99999),
