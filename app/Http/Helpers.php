@@ -1,7 +1,7 @@
 <?php
-Namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 if (!function_exists('imageCheck')){
     function imageCheck($image){
@@ -9,9 +9,9 @@ if (!function_exists('imageCheck')){
         if (str_contains($image, 'http')) {
             return $image;
         } elseif (Storage::disk('public')->exists($image)) {
-            return asset('storage/'.$image);
+            return URL::asset('storage/'.$image);
         }else{
-            return asset('public/img/placeholder-image.png');
+            return URL::asset('public/img/placeholder-image.png');
         }
     }
 }

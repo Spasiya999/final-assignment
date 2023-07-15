@@ -22,6 +22,16 @@ class RoomSearchController extends Controller
             $rooms = $rooms->where('occupancy', '>=', $request->guest);
         }
         $rooms = $rooms->get();
+        $bookingData = [
+            'booking_roomType' => $request->booking_roomType,
+            'booking_guest' => $request->booking_guest,
+            'booking_name' => $request->booking_name,
+            'booking_email' => $request->booking_email,
+            'booking_date' => $request->booking_date,
+        ];
+
+        session()->flash('bookingData', $bookingData);
+
         return view('home.rooms', compact('rooms'));
     }
 
@@ -30,6 +40,7 @@ class RoomSearchController extends Controller
         $types = Room::roomTypes;
         $statuses = Room::roomStatus;
         $roomName = Room::find($room->room_name);
-        return view('home.roominside', compact('room', 'types', 'statuses', 'roomName'));
+        $bookingData = session()->get('bookingData');
+        return view('home.roominside', compact('room', 'types', 'statuses', 'roomName', 'bookingData'));
     }
 }

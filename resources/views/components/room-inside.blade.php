@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-md-9">
-        <img class="rounded w-100"
-        src="{{ $room->image ? asset('storage/' . $room->image) : asset('img/room/placeholder-image.png') }}">
+        <img class="rounded w-100" src="{{ $room->image ? asset('storage/' . $room->image) : asset('img/room/placeholder-image.png') }}">
     </div>
     <div class="col-md-3">
         <div class="form rounded border p-2">
@@ -26,7 +25,7 @@
                     </div>
                 </fieldset>
                 <div class="mb-3">
-                    <button type="submit" class="btn text-center w-100" style="background-color: #FEA116; color:black">BOOK A ROOM</button>
+                    <button type="submit" class="btn text-center w-100" style="background-color: #FEA116; color:black">BOOK THIS ROOM</button>
                 </div>
             </form>
         </div>

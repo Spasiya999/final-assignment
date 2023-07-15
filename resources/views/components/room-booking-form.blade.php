@@ -6,26 +6,26 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
+                        <input type="text" class="form-control" name="booking_name" id="name" value="$bookingData['booking_name']" placeholder="Your Name">
                         <label for="name">Your Name</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="email" class="form-control" name="email" id="email"
+                        <input type="email" class="form-control" name="booking_email" id="email"
                             placeholder="Your Email">
                         <label for="email">Your Email</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="guest" id="guest" placeholder="Guest">
+                        <input type="text" class="form-control" name="booking_guest" id="guest" placeholder="Guest">
                         <label for="guest">Guest</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <select class="form-select" name="roomType" id="select1">
+                        <select class="form-select" name="booking_roomType" id="select1">
                             <option value="">Select Room Type</option>
                             <option value="Standard">Standard</option>
                             <option value="Deluxe">Deluxe</option>
@@ -37,15 +37,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                        <input type="date" class="form-control datetimepicker-input" name="checkInDate&time"
+                        <input type="date" class="form-control datetimepicker-input" name="booking_checkInDate&time"
                             id="checkInDate&time" placeholder="Check In Date & Time" data-target="#date3"
                             data-toggle="datetimepicker" />
-                        <label for="checkInDate&time">Check In Date & Time</label>
+                        <label for="checkInDate&time">Check In Date & Time</label>booking_
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                        <input type="date" class="form-control datetimepicker-input" name="checkOutDate&time"
+                        <input type="date" class="form-control datetimepicker-input" name="booking_checkOutDate&time"
                             id="checkOutDate&time" placeholder="Check Out Date & Time" data-target="#date4"
                             data-toggle="datetimepicker" />
                         <label for="checkOutDate&time">Check Out Date & Time</label>

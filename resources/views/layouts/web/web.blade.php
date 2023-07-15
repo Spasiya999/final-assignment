@@ -92,7 +92,7 @@
                         </button>
                     </div>
                 </div>
-                <x-booking-form></x-booking-form>
+                <x-room-booking-form></x-room-booking-form>
             </div>
         </div>
 
