@@ -57,7 +57,7 @@ Route::middleware(['auth', 'permission:rooms'])->group(function () {
 });
 
 Route::get('/search', [RoomSearchController::class, 'index'])->name('search');
-Route::get('list/{room}', [RoomSearchController::class, 'indside'])->name('room.inside');
+Route::get('room/{room}', [RoomSearchController::class, 'indside'])->name('room.inside');
 
 require __DIR__.'/auth.php';
 
