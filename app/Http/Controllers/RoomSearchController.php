@@ -9,17 +9,13 @@ class RoomSearchController extends Controller
 {
     public function index(Request $request)
     {
-        // dump($request->all());
-        // $rooms = Room::where('room_type', $request->roomType)
-        // ->where('occupancy','>=', $request->guest)
-        // ->where('status', 'available')
-        // ->get();
         $rooms = new Room;
-        if($request->roomType){
-            $rooms = $rooms->where('room_type', $request->roomType);
+        $title = 'Select Your Room';
+        if ($request->booking_roomType) {
+            $rooms = $rooms->where('room_type', $request->booking_roomType);
         }
-        if($request->guest){
-            $rooms = $rooms->where('occupancy', '>=', $request->guest);
+        if ($request->booking_guest) {
+            $rooms = $rooms->where('occupancy', '>=', $request->booking_guest);
         }
         $rooms = $rooms->get();
         $bookingData = [
@@ -30,17 +26,19 @@ class RoomSearchController extends Controller
             'booking_date' => $request->booking_date,
         ];
 
-        session()->flash('bookingData', $bookingData);
+        session()->put('bookingData', $bookingData);
 
-        return view('home.rooms', compact('rooms'));
+        return view('home.rooms', compact('rooms', 'title'));
     }
 
-    public function indside(Room $room){
+    public function inside(Room $room)
+    {
         $room = Room::find($room->id);
         $types = Room::roomTypes;
         $statuses = Room::roomStatus;
         $roomName = Room::find($room->room_name);
         $bookingData = session()->get('bookingData');
-        return view('home.roominside', compact('room', 'types', 'statuses', 'roomName', 'bookingData'));
+        $title = 'Book Your Room';
+        return view('home.roominside', compact('bookingData', 'room', 'types', 'statuses', 'roomName', 'title'));
     }
 }

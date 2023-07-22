@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomSearchController;
+use App\Http\Controllers\WebOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,7 +58,11 @@ Route::middleware(['auth', 'permission:rooms'])->group(function () {
 });
 
 Route::get('/search', [RoomSearchController::class, 'index'])->name('search');
-Route::get('room/{room}', [RoomSearchController::class, 'indside'])->name('room.inside');
+Route::get('room/{room}', [RoomSearchController::class, 'inside'])->name('room.inside');
+
+// orders
+Route::post('order/create', [WebOrderController::class, 'create'])->name('order.create');
+Route::post('order/confirm', [WebOrderController::class, 'confirm'])->name('order.confirm');
 
 require __DIR__.'/auth.php';
 

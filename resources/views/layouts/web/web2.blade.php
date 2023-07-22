@@ -25,7 +25,7 @@
                     <div class="row align-items-center g-5">
                         <div class="col-lg-12 text-center text-lg-start">
                             <h1 class="text-center text-white">
-                                Book Your Room
+                                {{$title}}
                             </h1>
                         </div>
                     </div>

@@ -3,10 +3,11 @@
         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
         <h1 class="text-white mb-4">Book A Table Online</h1>
         <form action="search">
+            <input type="hidden" name="title" value="Select Your Room">
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="booking_name" id="name" value="$bookingData['booking_name']" placeholder="Your Name">
+                        <input type="text" class="form-control" name="booking_name" id="name" placeholder="Your Name">
                         <label for="name">Your Name</label>
                     </div>
                 </div>
@@ -37,15 +38,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                        <input type="date" class="form-control datetimepicker-input" name="booking_checkInDate&time"
+                        <input type="date" class="form-control datetimepicker-input" name="booking_checkInDate_time"
                             id="checkInDate&time" placeholder="Check In Date & Time" data-target="#date3"
                             data-toggle="datetimepicker" />
-                        <label for="checkInDate&time">Check In Date & Time</label>booking_
+                        <label for="checkInDate&time">Check In Date & Time</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                        <input type="date" class="form-control datetimepicker-input" name="booking_checkOutDate&time"
+                        <input type="date" class="form-control datetimepicker-input" name="booking_checkOutDate_time"
                             id="checkOutDate&time" placeholder="Check Out Date & Time" data-target="#date4"
                             data-toggle="datetimepicker" />
                         <label for="checkOutDate&time">Check Out Date & Time</label>

@@ -1,29 +1,47 @@
+<h3>{{$room->room_name}}</h3>
+<input type="hidden" name="room_name" value="{{$room->room_name}}">
 <div class="row">
     <div class="col-md-9">
         <img class="rounded w-100" src="{{ $room->image ? asset('storage/' . $room->image) : asset('img/room/placeholder-image.png') }}">
     </div>
     <div class="col-md-3">
         <div class="form rounded border p-2">
-            <form method="POST">
+            <form method="POST" action="{{route('order.create')}}">
+                @csrf
                 <h3 class="text-center">BOOK YOUR ROOM</h3>
-                <fieldset disabled>
+                <input type="hidden" name="room_id" value="{{$room->id}}">
+                <input type="hidden" name="room_name" value="{{$room->room_name}}">
+                <input type="hidden" name="room_number" value="{{$room->room_number}}">
+                {{-- <fieldset disabled> --}}
                     <div class="mb-3">
-                        <label for="email" class="form-lable">Your Email Address</label>
-                        <input type="email" class="form-control" name="email" id="email">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" name="name" id="name"
+                        {{-- value="{{ $bookingData['booking_name'] }}" --}}
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Your Email Address</label>
+                        <input type="email" class="form-control" name="email" id="email"
+                        {{-- value="{{ $bookingData['booking_name'] }}" --}}
+                        >
                     </div>
                     <div class="mb-3">
                         <label for="roomType" class="form-label">Room Type</label>
                         <input type="text" id="roomType" class="form-control" placeholder="{{ $room->room_type }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="date">Date</label>
-                        <input type="text" class="form-control" name="date" id="date" placeholder="">
+                    {{-- <div class="mb-3">
+                        <label for="date">Date:- Check In</label>
+                        <input type="date" class="form-control" name="dateCheckIn" id="date" placeholder="">
                     </div>
+                    <div class="mb-3">
+                        <label for="date">Date:- Check Out</label>
+                        <input type="date" class="form-control" name="dateCheckOut" id="date" placeholder="">
+                    </div> --}}
                     <div class="mb-3">
                         <label for="guest">Guests</label>
                         <input type="text" class="form-control" name="guest" id="guest" placeholder="">
                     </div>
-                </fieldset>
+                {{-- </fieldset> --}}
                 <div class="mb-3">
                     <button type="submit" class="btn text-center w-100" style="background-color: #FEA116; color:black">BOOK THIS ROOM</button>
                 </div>
@@ -42,6 +60,8 @@
     </div>
 </div>
 <div class="row mt-2">
+    <h4>{{$room->room_number}}</h4>
+    <input type="hidden" name="room_number" value="{{$room->room_number}}">
     <div class="col-md-12">
         <p>
             {{$room->short_description}}
