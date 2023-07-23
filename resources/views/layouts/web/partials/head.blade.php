@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Restoran - Bootstrap Restaurant Template</title>
+<title>Restoran</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -23,9 +23,13 @@
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/dash/custom.css') }}" rel="stylesheet">
 
 <!-- Template Stylesheet -->
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 <!-- fontawesome Stylesheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
