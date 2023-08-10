@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class PayhereController extends Controller
 {
+    /**
+     * Display the payment page for the given order ID.
+     *
+     * @param  string  $orderId  The encoded order ID.
+     * @return \Illuminate\Contracts\View\View  The view for the payment page.
+     */
     public function pay($orderId){
         $order = new Order();
         $order = $order->getOrder(base64_decode(urldecode($orderId)));
@@ -19,7 +25,7 @@ class PayhereController extends Controller
             md5(
                 env('PAYHERE_MERCHANT_ID') .
                 $order->id .
-                number_format($order->total,2, '.', '') .
+                number_format($order->total, 2, '.', '') .
                 'LKR' .
                 strtoupper(md5(env('PAYHERE_SECRET')))
             )
@@ -28,28 +34,39 @@ class PayhereController extends Controller
         return view('home.payment.payhere.pay', compact('order', 'checkoutData', 'hash', 'title'));
     }
 
+    /**
+     * Handle the return from the payment gateway for a successful payment.
+     *
+     * @param  string  $orderId  The encoded order ID.
+     * @return string  A success message.
+     */
     public function return($orderId){
-        // $order = new Order();
-        // $order = $order->getOrder(base64_decode(urldecode($orderId)));
-
-        echo 'Payment Successfull';
+        echo 'Payment Successful';
     }
 
+    /**
+     * Handle the return from the payment gateway for a cancelled payment.
+     *
+     * @param  string  $orderId  The encoded order ID.
+     * @return string  A cancellation message.
+     */
     public function cancel($orderId){
-        // $order = new Order();
-        // $order = $order->getOrder(base64_decode(urldecode($orderId)));
-
         echo 'Payment Cancelled';
     }
 
+    /**
+     * Handle the payment gateway's notification callback.
+     *
+     * @param  \Illuminate\Http\Request  $request  The HTTP request containing the notification data.
+     * @return \Illuminate\Http\JsonResponse  A JSON response indicating the status of the notification processing.
+     */
     public function notify(Request $request){
-        Log::debug('request to noyify'.json_encode($request->all(),JSON_PRETTY_PRINT));
+        Log::debug('request to notify: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
 
         $orderId = $request->order_id;
         $order = Order::find($orderId);
 
-        if($order && $order->payment_status == 'pending'){
-
+        if ($order && $order->payment_status == 'pending') {
             $local_md5sig = strtoupper(
                 md5(
                     env('PAYHERE_MERCHANT_ID') .
@@ -60,28 +77,25 @@ class PayhereController extends Controller
                     strtoupper(md5(env('PAYHERE_SECRET')))
                 )
             );
-            // Log::debug('local md5sig: '.$local_md5sig);
-            dd($local_md5sig);
 
-            if($local_md5sig == $request->md5sig && $request->status_code == 2){
-
+            if ($local_md5sig == $request->md5sig && $request->status_code == 2) {
                 $payment_meta = [];
 
-                if($order->payment_meta){
+                if ($order->payment_meta) {
                     $payment_meta[] = json_decode($order->payment_meta);
                     $payment_meta[] = $request->all();
-                }else{
+                } else {
                     $payment_meta[] = $request->all();
                 }
 
-                if($order->update([
+                if ($order->update([
                     'payment_status' => 'paid',
-                    'payment_id' => $request->payment_id ,
+                    'payment_id' => $request->payment_id,
                     'payment_meta' => json_encode($payment_meta),
-                ])){
+                ])) {
                     return response()->json([
                         'status' => 'success',
-                        'message' => 'Payment Successfull',
+                        'message' => 'Payment Successful',
                     ]);
                 }
             }

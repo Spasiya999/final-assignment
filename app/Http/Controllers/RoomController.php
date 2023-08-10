@@ -68,7 +68,6 @@ class RoomController extends Controller
      */
     public function update(UpdateRoomRequest $request, Room $room)
     {
-        // dd($request->all());
         if($request->image != $room->image && !empty($room->image)){
             Storage::disk('public')->delete($room->image);
         }

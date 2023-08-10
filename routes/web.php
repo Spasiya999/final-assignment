@@ -73,7 +73,10 @@ Route::get('cart/checkout/{id}', [WebOrderController::class, 'checkout'])->name(
 Route::post('cart/confirm/{id}', [WebOrderController::class, 'confirm'])->name('cart.confirm');
 
 //payhere
-Route::get('order/pay/{id}', [PayhereController::class, 'pay'])->name('payhere.pay');
+Route::get('payhere/pay/{id}', [PayhereController::class, 'pay'])->name('payhere.pay');
+Route::get('payhere/return/{id}', [PayhereController::class, 'return'])->name('payhere.return');
+Route::get('payhere/cancel/{id}', [PayhereController::class, 'cancel'])->name('payhere.cancel');
+
 
 require __DIR__.'/auth.php';
 

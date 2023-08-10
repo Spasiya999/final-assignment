@@ -1,8 +1,8 @@
 @extends('layouts.web.web2')
 @section('content')
-<div class="container">
+<div class="container d-flex justify-content-center text-center">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12 ">
             <div class="mt-3">
                 <div class="card mb-4">
                     <div class="card-header py-3">
@@ -24,9 +24,9 @@
         <form class="" method="post" action="{{ env('PAYHERE_ENDPOINT') }}">
             <input type="hidden" name="merchant_id" value="{{ env('PAYHERE_MERCHANT_ID') }}">
 
-            <input type="hidden" name="return_url" value="http://sample.com/return">
-            <input type="hidden" name="cancel_url" value="http://sample.com/cancel">
-            <input type="hidden" name="notify_url" value="http://sample.com/notify">
+            <input type="hidden" name="return_url" value="{{route('payhere.return', urlencode(base64_encode($order->id)))}}">
+            <input type="hidden" name="cancel_url" value="{{route('payhere.cancel', urlencode(base64_encode($order->id)))}}">
+            <input type="hidden" name="notify_url" value="{{route('payhere.notify', urlencode(base64_encode($order->id)))}}">
 
             <input type="hidden" name="order_id" value="{{ $order->id }}">
             <input type="hidden" name="items" value="Order {{ $order->id }}">
