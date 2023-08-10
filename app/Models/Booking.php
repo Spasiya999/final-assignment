@@ -19,4 +19,8 @@ class Booking extends Model
         'occupants',
         'status',
     ];
+
+    public function room(){
+        return $this->belongsTo(Room::class);
+    }
 }

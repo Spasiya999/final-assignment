@@ -7,6 +7,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomSearchController;
 use App\Http\Controllers\WebbookingController;
 use App\Http\Controllers\WebOrderController;
+use App\Http\Controllers\payment\PayhereController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,8 +67,13 @@ Route::post('booking/create', [WebbookingController::class, 'create'])->name('bo
 Route::post('booking/confirm', [WebbookingController::class, 'confirm'])->name('booking.confirm');
 
 //cart
-Route::get('/cart', [WebOrderController::class, 'cart'])->name('cart');
-Route::post('/cart/checkout', [WebOrderController::class, 'checkout'])->name('cart.checkout');
+Route::get('cart', [WebOrderController::class, 'cart'])->name('cart');
+Route::post('cart/create', [WebOrderController::class, 'create'])->name('order.create');
+Route::get('cart/checkout/{id}', [WebOrderController::class, 'checkout'])->name('cart.checkout');
+Route::post('cart/confirm/{id}', [WebOrderController::class, 'confirm'])->name('cart.confirm');
+
+//payhere
+Route::get('order/pay/{id}', [PayhereController::class, 'pay'])->name('payhere.pay');
 
 require __DIR__.'/auth.php';
 

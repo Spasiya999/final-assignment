@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-3">
         <div class="form rounded border p-2">
-            <form method="POST" action="{{route('order.create')}}">
+            <form method="POST" action="{{route('booking.create')}}">
                 @csrf
                 <h3 class="text-center">BOOK YOUR ROOM</h3>
                 <input type="hidden" name="room_id" value="{{$room->id}}">
