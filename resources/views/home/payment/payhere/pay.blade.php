@@ -17,9 +17,6 @@
                                 <span><strong>Total: LKR.{{ $order->total }}</strong></span>
                             </li>
                         </ul>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                            Create Order
-                        </button>
                     </div>
                 </div>
             </div>
