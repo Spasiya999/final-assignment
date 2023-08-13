@@ -1,7 +1,7 @@
-<div class="col-md-6 bg-dark d-flex align-items-center">
+<div class="col-md-6 bg-dark d-flex align-items-center" id="bookingForm">
     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
-        <h1 class="text-white mb-4">Book A Table Online</h1>
+        <h1 class="text-white mb-4">Book A Room Online</h1>
         <form action="search">
             <input type="hidden" name="title" value="Select Your Room">
             <div class="row g-3">
@@ -59,6 +59,3 @@
         </form>
     </div>
 </div>
-{{-- <a href="#" title="Check-In / Check-Out" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Please select check-in and check-out date <br>*Check In from 11:00am">
-    <i class="fa fa-info-circle"></i>
-  </a> --}}
