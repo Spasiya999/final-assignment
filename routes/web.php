@@ -7,6 +7,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomSearchController;
 use App\Http\Controllers\WebbookingController;
 use App\Http\Controllers\WebOrderController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\payment\PayhereController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,12 @@ Route::middleware(['auth', 'permission:rooms'])->group(function () {
             Route::put('/{room}/edit',[RoomController::class, 'update'])->name('room.update');
             Route::delete('/{room}/delete',[RoomController::class, 'destroy'])->name('room.destroy');
             Route::post('/image-upload', [RoomController::class, 'imageUpload'])->name('room.image.upload');
+        });
+        Route::prefix('orders')->group(function(){
+            Route::get('/',[OrderController::class, 'index'])->name('admin.orders');
+            Route::get('/dataTabale',[OrderController::class, 'dataTable'])->name('admin.ordersTabale');
+            Route::put('{order}/cancel', [OrderController::class, 'cancel'] )->name('admin.orders.cancel');
+            Route::put('{order}/approve', [OrderController::class, 'approve'] )->name('admin.orders.approve');
         });
     });
 });

@@ -36,3 +36,22 @@
     </ul>
 </li>
 @endcan
+@can('rooms')
+<li class="nav-item">
+    <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+        <p>
+            Orders
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item">
+            <a href="{{route('admin.orders')}}" class="nav-link active">
+                <i class="fas fa-list-ul nav-icon"></i>
+                <p>All Orders</p>
+            </a>
+        </li>
+    </ul>
+</li>
+@endcan
