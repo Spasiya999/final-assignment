@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Booking;
 
 class Room extends Model
 {
@@ -34,4 +35,14 @@ class Room extends Model
         'Available' => 'Available',
         'Unavailable' => 'Unavailable',
     ];
+
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
+
+    public function upcomingBookings(){
+        return $this->hasMany(Booking::class)
+            ->where('check_out', '>=', time())
+            ->get();
+    }
 }

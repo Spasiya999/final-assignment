@@ -17,6 +17,15 @@ class RoomSearchController extends Controller
         if ($request->booking_guest) {
             $rooms = $rooms->where('occupancy', '>=', $request->booking_guest);
         }
+        if($request->booking_date){
+            $dates = explode(' - ', $request->booking_date);
+            $checkIn = strtotime($dates[0]);
+            $checkOut = strtotime($dates[1]);
+            $rooms = $rooms->whereDoesntHave('bookings', function($query) use ($checkIn, $checkOut){
+                $query->where('check_in', '<=', $checkIn)
+                    ->where('check_out', '>=', $checkOut);
+            });
+        }
         $rooms = $rooms->get();
         $bookingData = [
             'booking_roomType' => $request->booking_roomType,
