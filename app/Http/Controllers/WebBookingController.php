@@ -10,6 +10,9 @@ use App\Models\Booking;
 
 class WebBookingController extends Controller
 {
+    /**
+     * Create a new booking based on the selected room.
+     */
     public function create(Request $request)
     {
         $room = Room::find($request->room_id);
@@ -31,41 +34,43 @@ class WebBookingController extends Controller
         return view('home.booking.create', compact('title', 'booking', 'bookingData', 'room'));
     }
 
+    /**
+     * Confirm a booking and create an order item for it.
+     */
     public function confirm(Request $request)
-{
-    $booking = Booking::find($request->booking_id);
-    $price = $booking->room->price;
-    $booking->update([
-        'status' => 'Confirmed',
-        'notes' => $request->booking_comment,
-        'occupancy' => $request->booking_guest,
-        'price' => $price,
-    ]);
+    {
+        $booking = Booking::find($request->booking_id);
+        $price = $booking->room->price;
+        $booking->update([
+            'status' => 'Confirmed',
+            'notes' => $request->booking_comment,
+            'occupancy' => $request->booking_guest,
+            'price' => $price,
+        ]);
 
-    session()->forget('bookingData');
+        session()->forget('bookingData');
 
-    // Create an order item for the booking
-    $orderItem = OrderItem::create([
-        'item_type' => 'booking',
-        'item_id' => $booking->id,
-        'amount' => $booking->room->price,
-        'item_name' => 'Booking "'.$booking->room->room_name. '" "'. $booking->room->room_number. '" in '. $booking->room->price,
-    ]);
+        // Create an order item for the booking
+        $orderItem = OrderItem::create([
+            'item_type' => 'booking',
+            'item_id' => $booking->id,
+            'amount' => $booking->room->price,
+            'item_name' => 'Booking "'.$booking->room->room_name. '" "'. $booking->room->room_number. '" in '. $booking->room->price,
+        ]);
 
-    // Add the order item ID to the session
-    if (!session()->has('orderItems')) {
-        session()->put('orderItems', [$orderItem->id]);
-    } else {
-        $orderItems = session()->get('orderItems');
-        if (!is_array($orderItems)) {
-            $orderItems[] = $orderItem->id;
+        // Add the order item ID to the session
+        if (!session()->has('orderItems')) {
+            session()->put('orderItems', [$orderItem->id]);
         } else {
-            $orderItems[] = $orderItem->id;
+            $orderItems = session()->get('orderItems');
+            if (!is_array($orderItems)) {
+                $orderItems[] = $orderItem->id;
+            } else {
+                $orderItems[] = $orderItem->id;
+            }
+            session()->put('orderItems', $orderItems);
         }
-        session()->put('orderItems', $orderItems);
+
+        return redirect()->route('cart');
     }
-
-    return redirect()->route('cart');
-}
-
 }

@@ -36,9 +36,6 @@ class PayhereController extends Controller
 
     /**
      * Handle the return from the payment gateway for a successful payment.
-     *
-     * @param  string  $orderId  The encoded order ID.
-     * @return string  A success message.
      */
     public function return($orderId){
         echo 'Payment Successful';
@@ -46,9 +43,6 @@ class PayhereController extends Controller
 
     /**
      * Handle the return from the payment gateway for a cancelled payment.
-     *
-     * @param  string  $orderId  The encoded order ID.
-     * @return string  A cancellation message.
      */
     public function cancel($orderId){
         echo 'Payment Cancelled';
@@ -56,9 +50,6 @@ class PayhereController extends Controller
 
     /**
      * Handle the payment gateway's notification callback.
-     *
-     * @param  \Illuminate\Http\Request  $request  The HTTP request containing the notification data.
-     * @return \Illuminate\Http\JsonResponse  A JSON response indicating the status of the notification processing.
      */
     public function notify(Request $request){
         Log::debug('request to notify: ' . json_encode($request->all(), JSON_PRETTY_PRINT));

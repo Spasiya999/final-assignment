@@ -8,6 +8,9 @@ use App\Models\OrderItem;
 
 class WebOrderController extends Controller
 {
+    /**
+     * Display the cart contents.
+     */
     public function cart()
     {
         $orderItems = OrderItem::whereIn('id', session()->get('orderItems'))->get();
@@ -15,6 +18,9 @@ class WebOrderController extends Controller
         return view('home.booking.cart.cart', compact('orderItems', 'title'));
     }
 
+    /**
+     * Create a new order based on the cart contents.
+     */
     public function create(Request $request){
         $diff = array_diff($request->items, session()->get('orderItems'));
         OrderItem::whereIn('id', $diff)->delete();
@@ -34,6 +40,9 @@ class WebOrderController extends Controller
         return redirect()->route('cart.checkout', urldecode(base64_encode($order->id)));
     }
 
+    /**
+     * Display the order checkout page.
+     */
     public function checkout($orderID){
         $order = Order::find(base64_decode(urldecode($orderID)));
         $title = 'Order Checkout';
@@ -41,6 +50,9 @@ class WebOrderController extends Controller
         return view('home.booking.checkout', compact('order', 'title'));
     }
 
+    /**
+     * Process the order confirmation.
+     */
     public function confirm(Request $request, $orderID){
         $validated = $request->validate([
             'first_name' => 'string|required',

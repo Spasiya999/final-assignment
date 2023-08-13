@@ -7,11 +7,18 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    /**
+     * Display the orders index view.
+     */
     public function index(){
         return view('admin.orders.index');
     }
 
+    /**
+     * Fetch and provide data for the orders DataTable.
+     */
     public function dataTable(Request $request){
+        // Define the column order for display and search
         $columnsOrder  = [
             'id',
             'total',
@@ -22,6 +29,7 @@ class OrderController extends Controller
             null
         ];
 
+        // Define columns for search
         $columnsSearch = [
             'id',
             ['sql'=>'(SELECT SUM(amount) FROM order_items WHERE order_id = orders.id) like ?'],
@@ -31,13 +39,14 @@ class OrderController extends Controller
             'status',
         ];
 
-
+        // Build the initial query
         $ordersQuery = Order::query()
             ->selectRaw('orders.*,
             (SELECT SUM(amount) FROM order_items WHERE order_id = orders.id) AS total,
             CONCAT_WS(" ",TRIM(BOTH "\"" FROM JSON_EXTRACT(checkout_data, "$.first_name")),TRIM(BOTH "\"" FROM JSON_EXTRACT(checkout_data, "$.last_name")))  AS name
             ');
 
+        // Apply search filters
         if($request->search['value']){
             foreach($columnsSearch as $column){
                 if(is_array($column)){
@@ -47,22 +56,27 @@ class OrderController extends Controller
                 }
             }
         }
+        // Apply sorting
         if($request->order && !empty($columnsOrder[$request->order[0]['column']])){
             $ordersQuery->orderBy($columnsOrder[$request->order[0]['column']], $request->order[0]['dir'] );
         }else{
             $ordersQuery->orderBy('id','asc');
         }
 
+        // Calculate filtered count
         $filteredCount = $ordersQuery->count();
+
+        // Apply pagination
         if($request->length && $request->length!=-1){
             $ordersQuery->offset($request->start)->limit($request->length);
         }
 
+        // Get orders data
         $orders = $ordersQuery->get();
 
+        // Format data for DataTable
         $data = [];
         foreach($orders as $order){
-
             $data[]=[
                 $order->id,
                 $order->total,
@@ -76,6 +90,7 @@ class OrderController extends Controller
             ];
         }
 
+        // Build response for DataTable
         $output = [
             "draw" => $request->draw,
             "recordsTotal" => Order::count(),
@@ -86,11 +101,16 @@ class OrderController extends Controller
         return response()->json($output);
     }
 
+    /**
+     * Cancel an order.
+     */
     public function cancel(Order $order){
+        // Update the order status to 'cancelled'
         $update = $order->update([
             'status' => 'cancelled'
         ]);
 
+        // Return response based on update result
         if($update){
             return response()->json([
                 'message' => 'Order cancelled successfully',
@@ -98,18 +118,22 @@ class OrderController extends Controller
             ]);
         }else{
             return response()->json([
-                'message' => 'Unknown error ocurred',
+                'message' => 'Unknown error occurred',
                 'status' => false
             ]);
         }
-
     }
 
+    /**
+     * Approve an order.
+     */
     public function approve(Order $order){
+        // Update the order status to 'approved'
         $update = $order->update([
             'status' => 'approved'
         ]);
 
+        // Return response based on update result
         if($update){
             return response()->json([
                 'message' => 'Order approved successfully',
@@ -117,10 +141,9 @@ class OrderController extends Controller
             ]);
         }else{
             return response()->json([
-                'message' => 'Unknown error ocurred',
+                'message' => 'Unknown error occurred',
                 'status' => false
             ]);
         }
-
     }
 }
