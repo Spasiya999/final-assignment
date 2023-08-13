@@ -26,10 +26,6 @@ Route::get('/', function () {
     return view('home.index');
 })->name('home');
 
-Route::get('/home', function () {
-    return view('home.index');
-})->name('home');
-
 Route::get('/rooms', function(){
     return view('home.rooms');
 })->name('room.list');

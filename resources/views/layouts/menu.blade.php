@@ -2,7 +2,7 @@
 <li class="nav-item">
     <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>Web Site</p>
+        <p>Dashboard</p>
     </a>
 </li>
 <li class="nav-item">
