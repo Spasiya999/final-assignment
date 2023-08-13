@@ -3,7 +3,9 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
+                <a href="{{route('home')}}" class="navbar-brand p-0" style="color: #FEA116">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i><b>{{ config('app.name') }}</b></h1>
+                </a>
             </div>
             <!-- /.login-logo -->
 
