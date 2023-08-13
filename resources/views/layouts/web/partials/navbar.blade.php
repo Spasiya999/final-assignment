@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0 pe-4">
-                <a href="" class="nav-item nav-link active">Home</a>
+                <a href="{{route('home')}}" class="nav-item nav-link active">Home</a>
                 <a href="#" class="nav-item nav-link">About</a>
                 <a href="#" class="nav-item nav-link">Service</a>
                 <a href="#" class="nav-item nav-link">Menu</a>
@@ -23,7 +23,7 @@
                 </div>
                 <a href="#" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="#bookingForm" class="btn btn-primary py-2 px-4">Book A Room</a>
+            <a href="{{route('rooms')}}" class="btn btn-primary py-2 px-4">Book A Room</a>
         </div>
     </div>
 </nav>

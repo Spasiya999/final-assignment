@@ -66,7 +66,7 @@ Route::middleware(['auth', 'permission:rooms'])->group(function () {
     });
 });
 
-Route::get('/search', [RoomSearchController::class, 'index'])->name('search');
+Route::get('/rooms', [RoomSearchController::class, 'index'])->name('rooms');
 Route::get('room/{room}', [RoomSearchController::class, 'inside'])->name('room.inside');
 
 // bookings
