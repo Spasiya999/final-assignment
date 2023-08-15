@@ -69,6 +69,7 @@ Route::get('room/{room}', [RoomSearchController::class, 'inside'])->name('room.i
 // bookings
 Route::post('booking/create', [WebbookingController::class, 'create'])->name('booking.create');
 Route::post('booking/confirm', [WebbookingController::class, 'confirm'])->name('booking.confirm');
+Route::post('/booking/confirm', [WebBookingController::class, 'confirm'])->name('booking.confirm');
 
 //cart
 Route::get('cart', [WebOrderController::class, 'cart'])->name('cart');
