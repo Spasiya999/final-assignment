@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\Booking;
+use App\Models\Order;
 
 class WebBookingController extends Controller
 {
@@ -51,11 +52,17 @@ class WebBookingController extends Controller
         session()->forget('bookingData');
 
         // Create an order item for the booking
+        $order = Order::create([
+            'user_id' => '1', // Assuming you're using Laravel's authentication
+            'status' => 'Confirmed',
+        ]);
+
         $orderItem = OrderItem::create([
+            'order_id' => $order->id,
             'item_type' => 'booking',
             'item_id' => $booking->id,
             'amount' => $booking->room->price,
-            'item_name' => 'Booking "'.$booking->room->room_name. '" "'. $booking->room->room_number. '" in '. $booking->room->price,
+            'item_name' => 'Booking "' . $booking->room->room_name . '" "' . $booking->room->room_number . '" in ' . $booking->room->price,
         ]);
 
         // Add the order item ID to the session
