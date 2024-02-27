@@ -2,7 +2,7 @@
 <input type="hidden" name="room_name" value="{{$room->room_name}}">
 <div class="row">
     <div class="col-md-9">
-        <img class="rounded w-100" src="{{ $room->image ? asset('storage/' . $room->image) : asset('img/room/placeholder-image.png') }}">
+        <img class="rounded w-100" src="{{ $room->image ? Storage::url($room->image) : asset('img/room/placeholder-image.png') }}">
     </div>
     <div class="col-md-3">
         <div class="form rounded border p-2">
